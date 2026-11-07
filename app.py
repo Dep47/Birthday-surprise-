@@ -1,499 +1,153 @@
 
-from pathlib import Path
 import streamlit as st
-import streamlit.components.v1 as components
+import time
+import os
 
 st.set_page_config(
-    page_title="Happy Birthday, Munu ❤️",
-    page_icon="🌹",
-    layout="centered",
-    initial_sidebar_state="collapsed"
+    page_title="Happy Birthday Munu ❤️",
+    page_icon="❤️",
+    layout="centered"
 )
-
-ROOT = Path(__file__).parent
-PHOTO_DIR = ROOT / "photos"
-
-PHOTO_ITEMS = [
-    ("photo1.jpg", "Blue looks magical on you 💙"),
-    ("photo2.jpg", "My favourite view, even from far away 🤍"),
-    ("photo3.jpg", "A little chaos, a lot of memories. ❤️"),
-]
-
-SONG_EMBED_URL = (
-    "https://www.youtube-nocookie.com/embed/videoseries"
-    "?list=OLAK5uy_k9Dn0CJOLE0N_JMuT7dLMV-OfuyYzzE_8"
-    "&rel=0"
-)
-
-LETTER_GREETING = "মোৰ মৰমৰ মুনু,"
-
-LETTER_BODY = """জন্মদিনৰ বহুত বহুত মৰম আৰু শুভেচ্ছা। ❤️
-
-কি লিখিম ভাবি পোৱা নাই, মাথোঁ ইমানেই ক'ব বিচাৰোঁ যে তুমি মোৰ বাবে বহুত বিশেষ। সদায় কাষত থাকিব নোৱাৰিলেও মনত কিন্তু সদায় আছা।
-
-তোমাৰ মুখৰ হাঁহিটো সদায় এনেকৈয়ে থাকক। তুমি যি বিচৰা, জীৱনত সকলো পাবা। মাজে মাজে কাজিয়া হ'ব, অভিমান হ'ব, কিন্তু তাৰ মাজতো আমাৰ মৰমখিনি এনেকৈয়ে থাকক।
-
-আজি তোমাৰ বাবে বিশেষ দিন, দিনটো ভালকে যাওঁক, সুখী হৈ থাকিবা আৰু নিজৰ যত্ন ল'বা।
-
-Happy Birthday, Munu. বহুত মৰম তোমালৈ। ❤️"""
-
-LETTER_CLOSING = "সদায় তোমাৰ,"
-LETTER_SIGNATURE = "Deep"
-
-for key, default in {
-    "answers_submitted": False,
-    "surprise_opened": False,
-    "letter_opened": False,
-}.items():
-    if key not in st.session_state:
-        st.session_state[key] = default
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
-
 .stApp {
-    background: radial-gradient(ellipse at top, #39223d 0%, #1c1728 42%, #101827 100%);
-    color: #fff5f7;
-    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe0ec, #fff0f5, #f8d7ff);
 }
-
-.block-container {
-    max-width: 760px;
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-}
-
-h1, h2, h3 {
-    color: #ffe5ed !important;
-}
-
-.hero {
+h1, h2, h3, p {
+    color: #a52a62;
     text-align: center;
-    padding: 2.2rem 1rem 1.6rem;
-    border: 1px solid rgba(255,220,235,.18);
-    border-radius: 26px;
-    background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
-    box-shadow: 0 18px 55px rgba(0,0,0,.22);
 }
-
-.eyebrow {
-    color: #f4b9cc;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    font-size: .72rem;
-}
-
-.hero-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.7rem, 9vw, 4.8rem);
-    line-height: 1.04;
-    margin: .5rem 0;
-    color: #fff0f4;
-}
-
-.hero-sub {
-    color: #f6d6e1;
-    font-size: 1rem;
-    line-height: 1.8;
-}
-
-.section-card {
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,220,235,.14);
-    border-radius: 22px;
-    padding: 1.2rem 1.25rem;
-    margin: 1.2rem 0;
-}
-
-.soft {
-    color: #e9cbd7;
-    line-height: 1.8;
-}
-
-.rose-line {
+.question {
+    background: rgba(255,255,255,0.75);
+    padding: 22px;
+    border-radius: 20px;
     text-align: center;
-    color: #f3a9c1;
-    letter-spacing: .55rem;
-    font-size: 1.2rem;
-    margin: 1.1rem 0;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(180,50,100,0.12);
 }
-
-.photo-caption {
-    text-align: center;
-    color: #f8dce6;
-    font-size: .95rem;
-    margin: .35rem 0 1.3rem;
-}
-
-.letter {
-    background: linear-gradient(145deg, #fff7f0, #ffe8ee);
-    color: #563744;
-    border-radius: 18px;
-    padding: 1.5rem;
-    box-shadow: 0 15px 45px rgba(0,0,0,.22);
-    font-family: 'Noto Serif Bengali', serif;
-    line-height: 2;
-    white-space: pre-line;
-    font-size: 1rem;
-}
-
-.letter .greeting {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #9b4566;
-    margin-bottom: 1rem;
-}
-
-.letter .sign {
-    text-align: right;
-    margin-top: 1.4rem;
-    color: #9b4566;
-    font-weight: 600;
-}
-
-.ending {
-    text-align: center;
-    padding: 2.3rem 1rem;
-    margin-top: 1.6rem;
-    border-radius: 24px;
-    background: linear-gradient(145deg, rgba(194,85,128,.22), rgba(255,255,255,.06));
-    border: 1px solid rgba(255,210,230,.2);
-}
-
-.ending-main {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-    color: #ffe5ed;
-    line-height: 1.3;
-}
-
-.petals {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.petal {
-    position: absolute;
-    top: -12%;
-    width: 12px;
-    height: 18px;
-    border-radius: 80% 0 80% 0;
-    background: linear-gradient(135deg, #ffd5e2, #d94e83);
-    opacity: .55;
-    animation: fall linear infinite;
-}
-
-.petal:nth-child(1) {
-    left: 8%;
-    animation-duration: 13s;
-    animation-delay: -4s;
-}
-
-.petal:nth-child(2) {
-    left: 23%;
-    animation-duration: 17s;
-    animation-delay: -10s;
-}
-
-.petal:nth-child(3) {
-    left: 39%;
-    animation-duration: 14s;
-    animation-delay: -7s;
-}
-
-.petal:nth-child(4) {
-    left: 57%;
-    animation-duration: 19s;
-    animation-delay: -12s;
-}
-
-.petal:nth-child(5) {
-    left: 74%;
-    animation-duration: 15s;
-    animation-delay: -5s;
-}
-
-.petal:nth-child(6) {
-    left: 91%;
-    animation-duration: 18s;
-    animation-delay: -9s;
-}
-
-@keyframes fall {
-    0% {
-        transform: translate3d(0,-5vh,0) rotate(0);
-    }
-    100% {
-        transform: translate3d(70px,115vh,0) rotate(540deg);
-    }
-}
-
-div.stButton > button {
-    border-radius: 999px;
-    border: 1px solid rgba(255,220,235,.35);
-    background: linear-gradient(110deg,#b84c78,#e47b9d);
+.stButton button {
+    border-radius: 25px;
+    background-color: #ff69a6;
     color: white;
-    font-weight: 600;
-    min-height: 2.8rem;
-    padding: .45rem 1.3rem;
-}
-
-div.stButton > button:hover {
-    border-color: #ffe2ec;
-    color: white;
-    background: linear-gradient(110deg,#cc5e89,#ef91ae);
-}
-
-div[data-testid="stRadio"] label {
-    color: #fff1f5;
-}
-
-div[data-testid="stMarkdownContainer"] p {
-    color: inherit;
-}
-
-footer {
-    visibility: hidden;
-}
-
-@media(max-width:600px) {
-    .block-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .hero {
-        padding: 1.8rem .8rem;
-    }
-
-    .section-card {
-        padding: 1rem;
-    }
-
-    .letter {
-        padding: 1.1rem;
-        font-size: .94rem;
-    }
+    border: none;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
 }
 </style>
-
-<div class="petals">
-    <span class="petal"></span>
-    <span class="petal"></span>
-    <span class="petal"></span>
-    <span class="petal"></span>
-    <span class="petal"></span>
-    <span class="petal"></span>
-</div>
 """, unsafe_allow_html=True)
+
+if "answers" not in st.session_state:
+    st.session_state.answers = {}
+
+if "surprise" not in st.session_state:
+    st.session_state.surprise = False
+
+st.markdown("# 🎀 Happy Birthday Munu ❤️")
+st.markdown("### A little surprise from someone who misses you.")
 
 st.markdown("""
-<div class="hero">
-    <div class="eyebrow">A little surprise from Mumbai to Guwahati</div>
-    <div class="hero-title">Happy Birthday,<br>Munu ❤️</div>
-    <div class="hero-sub">
-        Today is all about you.<br>
-        Ready to open something made with love?
-    </div>
-    <div style="font-size:2rem;margin-top:.8rem">🌹 ✨ 🌹</div>
+<div class="question">
+<h2>Hey Munu! 💗</h2>
+<p>Before opening your birthday surprise, answer these three little questions.</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="rose-line">✿ ✿ ✿</div>', unsafe_allow_html=True)
+questions = [
+    "Munu, do you love Deep? ❤️",
+    "Do you miss me sometimes? 🥺",
+    "Will you accept my little birthday surprise? 🎁"
+]
 
-if not st.session_state.surprise_opened:
-
-    st.markdown("""
-    <div class="section-card">
-        <h3 style="text-align:center">Before your surprise… 💌</h3>
-        <p class="soft" style="text-align:center">
-            Answer these three little questions first.
-            No pressure… but I might judge your answers. 😌
-        </p>
+for i, question in enumerate(questions):
+    st.markdown(f"""
+    <div class="question">
+    <h3>{question}</h3>
     </div>
     """, unsafe_allow_html=True)
 
-    with st.form("birthday_questions"):
+    col1, col2, col3 = st.columns(3)
 
-        q1 = st.radio(
-            "1. Munu, do you love Deep?",
-            ["YES ❤️", "THINK 🤔", "NO 🙄"],
-            index=None
-        )
+    with col1:
+        if st.button("YES ❤️", key=f"yes{i}"):
+            st.session_state.answers[i] = "YES"
 
-        q2 = st.radio(
-            "2. What makes Deep happiest?",
-            ["Talking with Munu 💬", "Pizza 🍕", "Sleeping 😴"],
-            index=None
-        )
+    with col2:
+        if st.button("THINK 🤔", key=f"think{i}"):
+            st.session_state.answers[i] = "THINK"
 
-        q3 = st.radio(
-            "3. Where is Deep sending birthday wishes from?",
-            ["Mumbai 🌃", "Guwahati 🌸", "The Moon 🌙"],
-            index=None
-        )
+    with col3:
+        if st.button("NO 🙈", key=f"no{i}"):
+            st.session_state.answers[i] = "NO"
 
-        submitted = st.form_submit_button(
-            "Submit my answers 💗",
-            use_container_width=True
-        )
+    answer = st.session_state.answers.get(i)
 
-    if submitted:
-        if not q1 or not q2 or not q3:
-            st.warning("Answer all three questions first, Munu. 😊")
-        else:
-            st.session_state.answers_submitted = True
-            st.session_state.q1 = q1
-            st.session_state.q2 = q2
-            st.session_state.q3 = q3
-            st.rerun()
+    if answer == "YES":
+        st.success("Awww! I knew it! ❤️")
+    elif answer == "THINK":
+        st.info("Take your time, Munu. I'm waiting! 🥺")
+    elif answer == "NO":
+        st.warning("Ouch! My heart needs a hug. 😂")
 
-    if st.session_state.answers_submitted:
+st.markdown("---")
 
-        st.markdown("""
-        <div class="section-card">
-            <h3 style="text-align:center">Answers received! 😄</h3>
-            <p class="soft" style="text-align:center">
-                Okay, Munu… I accept your answers.
-                Your surprise is waiting.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if st.button("Open your birthday surprise 🎁", use_container_width=True):
-            st.session_state.surprise_opened = True
-            st.balloons()
-            st.snow()
-            st.rerun()
-
-else:
-
+if all(st.session_state.answers.get(i) == "YES" for i in range(3)):
     st.balloons()
 
+    if st.button("🔓 OPEN YOUR SURPRISE ❤️"):
+        st.session_state.surprise = True
+
+else:
+    st.markdown("### 🔒 Your surprise is waiting...")
+    st.caption("Answer YES to all three questions to unlock it. ❤️")
+
+if st.session_state.surprise:
+
+    st.markdown("---")
+    st.markdown("# 🎉 SURPRISE MUNU! 🎉")
+    st.markdown("## Happy Birthday, My Favourite Person ❤️")
+
     st.markdown("""
-    <div class="section-card" style="text-align:center">
-        <div style="font-size:3rem">🎂 🎉 💖</div>
-        <h2 style="font-family:'DM Serif Display',serif">
-            It's your day, Munu!
-        </h2>
-        <p class="soft">
-            A small celebration, made from miles away,
-            with a whole lot of love.
-        </p>
+    <div class="question">
+    <h2>🎂 Make a wish, Munu! 🎂</h2>
+    <h1>💗 🕯️ 💗</h1>
+    <p>Even miles apart, I'm celebrating with you.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(
-        '<div class="rose-line">🌹 &nbsp; 🌹 &nbsp; 🌹</div>',
-        unsafe_allow_html=True
-    )
+    st.snow()
+
+    st.markdown("## 🎵 A song for you")
+
+    st.video("https://youtu.be/LXd5OV5WjGE")
+
+    st.markdown("## 📸 Our Little Memories")
+
+    photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg"]
+
+    for photo in photos:
+        if os.path.exists(photo):
+            st.image(photo, use_container_width=True)
+
+    st.markdown("## 💌 A Little Letter For You")
 
     st.markdown("""
-    <div class="section-card">
-        <h3 style="text-align:center">A birthday song for you 🎶</h3>
-        <p class="soft" style="text-align:center">
-            Tap play and enjoy your little birthday moment.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    <div class="question">
+    <h3>My Munu ❤️</h3>
+    <p>
+    আজি তোমাৰ জন্মদিন। দূৰত থাকিলেও আজি দিনটো
+    মোৰ বাবেও বহুত বিশেষ।
 
-    components.iframe(SONG_EMBED_URL, height=180, scrolling=False)
+    তোমাৰ হাঁহিটো সদায় এনেকৈয়ে থাকক।
+    জীৱনৰ প্ৰতিটো সপোন পূৰণ হওক।
 
-    st.markdown(
-        '<div class="rose-line">✿ ✿ ✿</div>',
-        unsafe_allow_html=True
-    )
+    মই সদায় বিচাৰোঁ তুমি সুখী হোৱা।
+    আৰু তোমাৰ এই বিশেষ দিনটো বহুত ধুনীয়াকৈ পাৰ হওক।
 
-    st.markdown("""
-    <div class="section-card">
-        <h2 style="text-align:center">A few moments of you 📸</h2>
-        <p class="soft" style="text-align:center">
-            Some memories deserve their own little place.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    found_photos = 0
-
-    for filename, caption in PHOTO_ITEMS:
-        image_path = PHOTO_DIR / filename
-
-        if image_path.exists():
-            found_photos += 1
-            st.image(str(image_path), use_container_width=True)
-            st.markdown(
-                f'<div class="photo-caption">{caption}</div>',
-                unsafe_allow_html=True
-            )
-
-    if found_photos == 0:
-        st.info("Add your photos to the photos folder to show them here.")
-    elif found_photos < 3:
-        st.caption(
-            f"{found_photos} of 3 photos found. "
-            "Add the missing image files to the photos folder."
-        )
-
-    st.markdown(
-        '<div class="rose-line">🌹 ✨ 🌹</div>',
-        unsafe_allow_html=True
-    )
-
-    st.markdown("""
-    <div class="section-card" style="text-align:center">
-        <h2>A little letter for you 💌</h2>
-        <p class="soft">
-            Some things are easier to write than to say.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if not st.session_state.letter_opened:
-
-        st.markdown("""
-        <div style="text-align:center;font-size:5rem">
-            💌
-        </div>
-        <p class="soft" style="text-align:center">
-            There's something inside, just for you.
-        </p>
-        """, unsafe_allow_html=True)
-
-        if st.button("Open your letter 💗", use_container_width=True):
-            st.session_state.letter_opened = True
-            st.rerun()
-
-    else:
-
-        st.markdown(
-            f'<div class="letter">'
-            f'<div class="greeting">{LETTER_GREETING}</div>'
-            f'{LETTER_BODY}'
-            f'<div class="sign">{LETTER_CLOSING}<br>{LETTER_SIGNATURE}</div>'
-            f'</div>',
-            unsafe_allow_html=True
-        )
-
-    st.markdown("""
-    <div class="ending">
-        <div style="font-size:2.4rem">❤️ 🌙 ❤️</div>
-        <div class="ending-main">
-            Distance is just a number.<br>
-            You're always close to my heart.
-        </div>
-        <p class="soft" style="margin-top:1rem">
-            Happy Birthday, Munu.
-            Always sending you love, from Mumbai. ❤️
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <p style="text-align:center;color:#d9afbf;font-size:.8rem;margin-top:2rem">
-        Made with love, just for Munu · Deep ❤️
+    Happy Birthday, Munu! ❤️
     </p>
+    </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("# ❤️ Always keep smiling, Munu!")
