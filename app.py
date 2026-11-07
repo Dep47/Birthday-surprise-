@@ -1,5 +1,6 @@
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Happy Birthday Munu ❤️",
@@ -7,244 +8,196 @@ st.set_page_config(
     layout="centered"
 )
 
+if "answer" not in st.session_state:
+    st.session_state.answer = ""
+
+if "surprise_open" not in st.session_state:
+    st.session_state.surprise_open = False
+
+if "candles_blown" not in st.session_state:
+    st.session_state.candles_blown = False
+
+if "part3_open" not in st.session_state:
+    st.session_state.part3_open = False
+
 st.markdown("""
 <style>
 .stApp {
-    background: linear-gradient(145deg, #ffe0eb, #fff0f5, #ffd6e7);
+    background: linear-gradient(135deg, #ffe4ec, #fff0f5, #fce4ec);
 }
-h1, h2, h3 {
-    color: #b52d62;
+h1, h2, h3, p {
+    color: #8e2455;
+}
+.cinematic {
     text-align: center;
+    padding: 25px 10px;
+    animation: fadeIn 2s ease-in;
 }
-p {
-    color: #873653;
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+.hearts {
     text-align: center;
-    font-size: 17px;
+    font-size: 30px;
+    animation: float 3s infinite ease-in-out;
 }
-.stButton button {
-    background: linear-gradient(90deg, #ff4d88, #ff78a5);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 12px;
-    font-weight: bold;
-    width: 100%;
+@keyframes float {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-15px);}
 }
-div[data-testid="stRadio"] {
-    background: rgba(255,255,255,0.55);
+.cake {
+    font-size: 100px;
+    text-align: center;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-12px);}
+}
+.love-text {
+    text-align: center;
+    font-size: 20px;
+    font-style: italic;
+    color: #a83268;
     padding: 15px;
-    border-radius: 15px;
 }
 </style>
 """, unsafe_allow_html=True)
 
-if "answers" not in st.session_state:
-    st.session_state.answers = {}
+st.title("Happy Birthday, Munu! ❤️")
+st.subheader("A little surprise, made just for you.")
 
-if "surprise_opened" not in st.session_state:
-    st.session_state.surprise_opened = False
+st.markdown("## 👦🏻 ❤️ 👧🏻")
+st.caption("Deep ❤️ Munu")
 
-st.markdown("""
-# 🎂 Happy Birthday, Munu! ❤️
-
-### A little surprise, made just for you.
-
-👦🏻 ❤️ 👧🏻
-
-### Deep ❤️ Munu
-
-Some people make life more beautiful
-just by being in it.
-
-Today is all about YOU. 🥰
-
-I made something little and special.
-
-### Are you ready? ❤️
-""")
+st.write("Some people make life more beautiful just by being in it.")
 
 st.balloons()
+st.divider()
+
+st.header("One Important Question! 😍")
+st.write("Munu, do you love Deep? ❤️")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if st.button("YES ❤️"):
+        st.session_state.answer = "yes"
+
+with col2:
+    if st.button("THINK 🤔"):
+        st.session_state.answer = "think"
+
+with col3:
+    if st.button("NO 💔"):
+        st.session_state.answer = "no"
+
+if st.session_state.answer == "yes":
+    st.success("Yay! Deep is the happiest person! ❤️")
+    st.image(
+        "https://gifdb.com/images/branded/high/dancing-cartoon-couple-n4ezj8115cv7paxs.gif",
+        width=300
+    )
+
+elif st.session_state.answer == "think":
+    st.info("Take your time, Munu. Deep is waiting patiently. ❤️")
+    st.markdown("## 🤔💭")
+
+elif st.session_state.answer == "no":
+    st.error("Oh no! Deep's heart is broken! 💔")
+    st.markdown("## 😭🥺💔")
 
 st.divider()
 
-st.markdown("""
-## 💌 A Little Game For You
+st.header("Your Special Surprise 🎁")
 
-Before opening your birthday surprise,
-you have to answer three little questions!
+if st.session_state.answer == "yes":
 
-Be honest, Munu! 😁❤️
-""")
+    if not st.session_state.surprise_open:
+        if st.button("OPEN YOUR SURPRISE 🎁"):
+            st.session_state.surprise_open = True
+            st.rerun()
 
-st.markdown("## 💗 Question 1")
-
-st.markdown("### Munu, do you love Deep? ❤️")
-
-q1 = st.radio(
-    "Choose your answer:",
-    ["YES ❤️", "THINK 🤔", "NO 💔"],
-    index=None,
-    key="q1"
-)
-
-if st.button("Submit Answer 1"):
-    if q1:
-        st.session_state.answers["q1"] = q1
     else:
-        st.warning("Choose one answer first! 😁")
+        st.balloons()
 
-if "q1" in st.session_state.answers:
-    if st.session_state.answers["q1"] == "YES ❤️":
-        st.success("Yay! Deep is the happiest person! ❤️")
-        st.markdown("## 🥰 💑 ❤️")
-    elif st.session_state.answers["q1"] == "THINK 🤔":
-        st.info("Take your time, Munu. Deep is waiting patiently. ❤️")
-        st.markdown("## 🤔 💭 🥺")
-    else:
-        st.error("Oh no! Deep's heart is broken! 💔")
-        st.markdown("## 😭 🥺 💔")
+        st.markdown("""
+        <div class="cinematic">
+            <div class="hearts">💗 🌸 💕 🌷 💗</div>
+            <h1>Wait... there's something more for you, Munu.</h1>
+            <p class="love-text">
+                Welcome to your little world. ❤️
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-st.divider()
+        st.divider()
 
-st.markdown("## 💕 Question 2")
+        st.markdown("""
+        <div class="cinematic">
+            <h1>Happy Birthday, My Munu! 🎂</h1>
+            <div class="cake">🎂</div>
+            <h2>Make a wish! ✨</h2>
+        </div>
+        """, unsafe_allow_html=True)
 
-st.markdown("### What makes Deep happiest?")
+        if not st.session_state.candles_blown:
+            if st.button("BLOW OUT THE CANDLES 🕯️"):
+                st.session_state.candles_blown = True
+                st.balloons()
+                st.rerun()
+        else:
+            st.markdown("""
+            <div class="cinematic">
+                <h1>✨ Wish made! ✨</h1>
+                <div class="hearts">💖 💗 💕 💖</div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.snow()
 
-q2 = st.radio(
-    "Your answer:",
-    [
-        "Talking with Munu ❤️",
-        "Eating pizza 🍕",
-        "Sleeping 😴"
-    ],
-    index=None,
-    key="q2"
-)
+        st.divider()
 
-if st.button("Submit Answer 2"):
-    if q2:
-        st.session_state.answers["q2"] = q2
-    else:
-        st.warning("Choose one answer first! 😁")
+        st.header("A Song for You 🎶")
 
-if "q2" in st.session_state.answers:
-    if st.session_state.answers["q2"] == "Talking with Munu ❤️":
-        st.success("Absolutely correct! You are his happiness! 🥰")
-        st.markdown("## 🧸 ❤️ 🥰")
-    elif st.session_state.answers["q2"] == "Eating pizza 🍕":
-        st.info("Pizza is good, but Munu is better! 😂❤️")
-        st.markdown("## 🍕 😂")
-    else:
-        st.info("Sleeping is important, but Munu comes first! ❤️")
-        st.markdown("## 😴 🥰")
+        components.iframe(
+            "https://www.youtube.com/embed/LXd5OV5WjGE?autoplay=1&rel=0",
+            height=220,
+            scrolling=False
+        )
 
-st.divider()
+        st.divider()
 
-st.markdown("## 💖 Question 3")
+        st.markdown("""
+        <div class="cinematic">
+            <h1>Two Hearts, One Celebration ❤️</h1>
+            <div style="font-size:75px;">👦🏻 💕 👧🏻</div>
+            <p class="love-text">
+                Even miles apart, I'm celebrating with you.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-st.markdown("### Where is Deep sending you birthday wishes from?")
+        st.divider()
 
-q3 = st.radio(
-    "Guess:",
-    [
-        "Mumbai 🌆",
-        "Guwahati 🌸",
-        "The Moon 🌙"
-    ],
-    index=None,
-    key="q3"
-)
+        st.markdown("""
+        <div class="cinematic">
+            <h2>There's something I want to tell you...</h2>
+            <div class="hearts">💌 ❤️ 💌</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-if st.button("Submit Answer 3"):
-    if q3:
-        st.session_state.answers["q3"] = q3
-    else:
-        st.warning("Choose one answer first! 😁")
+        if st.button("CONTINUE ❤️"):
+            st.session_state.part3_open = True
+            st.rerun()
 
-if "q3" in st.session_state.answers:
-    if st.session_state.answers["q3"] == "Mumbai 🌆":
-        st.success("Yes! From Mumbai, with lots of love! ❤️")
-        st.markdown("## 🌆 💌 ❤️")
-    elif st.session_state.answers["q3"] == "Guwahati 🌸":
-        st.info("Not this time! Deep is sending wishes from Mumbai! 😁")
-        st.markdown("## 🌸 😁")
-    else:
-        st.info("Haha! Not from the Moon, from Mumbai! 😂")
-        st.markdown("## 🌙 🚀")
-
-st.divider()
-
-if len(st.session_state.answers) == 3:
-    st.markdown("""
-    ## 🎁 All Three Questions Completed!
-
-    ### Your surprise is ready! ❤️
-    """)
-
-    if st.button("🎁 OPEN YOUR BIRTHDAY SURPRISE ❤️"):
-        st.session_state.surprise_opened = True
-        st.rerun()
+        if st.session_state.part3_open:
+            st.divider()
+            st.header("A Letter for Munu 💌")
 
 else:
-    st.info(
-        f"💌 Complete all three questions to unlock your surprise! "
-        f"({len(st.session_state.answers)}/3)"
-    )
+    st.button("🔒 Surprise Locked", disabled=True)
+    st.caption("Only YES can unlock this surprise! ❤️")
 
-if st.session_state.surprise_opened:
-
-    st.balloons()
-    st.snow()
-
-    st.markdown("---")
-
-    st.markdown("""
-    # 🎉 HAPPY BIRTHDAY MUNU! 🎂
-
-    ## ❤️ 🥳 💗
-
-    ### This Little Surprise Is All Yours!
-
-    You are special, Munu.
-
-    Never forget that! ❤️
-
-    ### 🥰 🎀 🧸 💐
-
-    May your life always be filled with
-    happiness, laughter and beautiful moments.
-
-    May this new year of your life bring
-    you everything your heart wishes for.
-
-    ### With love,
-
-    # Deep ❤️
-    """)
-
-    st.divider()
-
-    st.markdown("""
-    # 🎵 A Song For You 🎵
-
-    ### Aji Munu Jonmodin ❤️
-
-    Because today deserves its own soundtrack! 🥰
-    """)
-
-    playlist_id = "OLAK5uy_k9Dn0CJOLE0N_JMuT7dLMV-OfuyYzzE_8"
-
-    st.iframe(
-        f"https://www.youtube-nocookie.com/embed/videoseries?list={playlist_id}&autoplay=1",
-        height=220
-    )
-
-    st.markdown("""
-    ## 🎂 Once Again, Happy Birthday!
-
-    ### Lots of love from Mumbai to you. 💌
-
-    ## ❤️ Deep & Munu ❤️
-    """)
-
-    st.balloons()
+st.divider()
+st.caption("Made with ❤️ by Deep, specially for Munu.")
