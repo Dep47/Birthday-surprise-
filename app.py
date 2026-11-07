@@ -29,6 +29,11 @@ with col1:
     if st.button("YES ❤️"):
         st.session_state.love_answered = True
         st.balloons()
+            st.image(
+        "https://gifdb.com/images/branded/high/dancing-cartoon-couple-n4ezj8115cv7paxs.gif",
+        width=300
+    )
+        
         st.markdown("# 💃🕺❤️")
         st.success("Yay! Deep is the happiest person! ❤️")
 
