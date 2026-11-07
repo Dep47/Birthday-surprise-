@@ -35,7 +35,7 @@ d = True
         width=300
     )
         
-        st.markdown("# 💃🕺❤️")
+        
         st.success("Yay! Deep is the happiest person! ❤️")
 
 with col2:
