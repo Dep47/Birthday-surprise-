@@ -26,17 +26,18 @@ with col1:
     if st.button("YES ❤️"):
         st.balloons()
         st.markdown("# 💃🕺❤️")
-        st.success("Yayyyy! Deep is the happiest person! 😂❤️")
+        st.success("Yay! Deep is the happiest person! ❤️")
 
 with col2:
     if st.button("THINK 🤔"):
         st.markdown("# 🤔💭")
-        st.info("Take your time, Munu! Deep is waiting patiently. 😂")
+        
+st.info("Take your time, Munu. Deep is waiting patiently. ❤️")
 
 with col3:
     if st.button("NO 💔"):
         st.markdown("# 😭🥺💔")
-        st.error("Nooooo! Deep's heart is broken! 😂")
+        st.error("Oh no! Deep's heart is broken! 💔")
 
 
 if st.button("Open Your Surprise 🎁"):
