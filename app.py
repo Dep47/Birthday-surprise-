@@ -20,17 +20,21 @@ st.divider()
 st.header("One Important Question! 😍")
 
 st.write("Munu, do you love Deep? ❤️")
-
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    if st.button("YES, Obviously! ❤️"):
+    if st.button("YES ❤️"):
         st.balloons()
         st.success("Yayyyy! I knew it! 😂❤️")
 
 with col2:
-    if st.button("Let me think... 🤔"):
-        st.info("Take your time, Munu! 😂❤️")
+    if st.button("Think 🤔"):
+        st.info("Take your time, Munu! 😂")
+
+with col3:
+    if st.button("NO 💔"):
+        st.error("Waittt! Are you breaking Deep's heart? 😭😂")
+
 
 if st.button("Open Your Surprise 🎁"):
     st.success("You are special, Munu. Never forget that! ❤️")
