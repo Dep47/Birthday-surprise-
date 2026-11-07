@@ -27,7 +27,8 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     if st.button("YES ❤️"):
-        st.session_state.love_answered = True
+st.session_state.love_answered
+d = True
         st.balloons()
             st.image(
         "https://gifdb.com/images/branded/high/dancing-cartoon-couple-n4ezj8115cv7paxs.gif",
