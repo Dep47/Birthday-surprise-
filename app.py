@@ -25,15 +25,18 @@ col1, col2, col3 = st.columns(3)
 with col1:
     if st.button("YES ❤️"):
         st.balloons()
-        st.success("Yayyyy! I knew it! 😂❤️")
+        st.markdown("# 💃🕺❤️")
+        st.success("Yayyyy! Deep is the happiest person! 😂❤️")
 
 with col2:
-    if st.button("Think 🤔"):
-        st.info("Take your time, Munu! 😂")
+    if st.button("THINK 🤔"):
+        st.markdown("# 🤔💭")
+        st.info("Take your time, Munu! Deep is waiting patiently. 😂")
 
 with col3:
     if st.button("NO 💔"):
-        st.error("Waittt! Are you breaking Deep's heart? 😭😂")
+        st.markdown("# 😭🥺💔")
+        st.error("Nooooo! Deep's heart is broken! 😂")
 
 
 if st.button("Open Your Surprise 🎁"):
