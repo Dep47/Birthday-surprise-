@@ -9,6 +9,8 @@ st.set_page_config(
 st.title("Happy Birthday, Munu! ❤️")
 
 st.subheader("A little surprise, made just for you.")
+st.markdown("## 👦🏻 ❤️ 👧🏻")
+st.caption("Deep ❤️ Munu")
 
 st.write("Some people make life more beautiful just by being in it.")
 
