@@ -25,17 +25,6 @@ st.markdown("""
 h1, h2, h3, p {
     font-family: Georgia, serif;
 }
-.main-title {
-    text-align: center;
-    color: #a33d70;
-    font-size: 42px;
-    font-weight: bold;
-}
-.subtitle {
-    text-align: center;
-    color: #875477;
-    font-size: 19px;
-}
 .stButton > button {
     width: 100%;
     border-radius: 20px;
@@ -52,6 +41,7 @@ h1, h2, h3, p {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 if st.session_state.page == 1:
 
@@ -197,9 +187,7 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     if st.button("🎂 BLOW THE CANDLES"):
-
         st.balloons()
-
         st.success("Your wish deserves to come true, Munu! ❤️")
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -226,21 +214,13 @@ elif st.session_state.page == 2:
 
     image_files = sorted([
         file for file in Path(__file__).parent.iterdir()
-        if file.is_file()
-        and file.suffix.lower() in image_extensions
+        if file.is_file() and file.suffix.lower() in image_extensions
     ])
 
     if image_files:
-
         for photo in image_files:
-
-            st.image(
-                str(photo),
-                use_container_width=True
-            )
-
+            st.image(str(photo), use_container_width=True)
     else:
-
         st.info("Your photos will appear here after uploading them to GitHub.")
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -306,7 +286,6 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     if st.button("💌 READ MY BIRTHDAY LETTER"):
-
         st.session_state.letter_open = not st.session_state.letter_open
 
     if st.session_state.letter_open:
@@ -323,9 +302,7 @@ elif st.session_state.page == 2:
                 My Dear Munu ❤️
             </h2>
 
-            <p>
-                Happy Birthday, my love. ❤️
-            </p>
+            <p>Happy Birthday, my love. ❤️</p>
 
             <p>
                 I wish I could be beside you today,
@@ -374,7 +351,6 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     if st.button("🏠 BACK TO HOMEPAGE"):
-
         st.session_state.page = 1
         st.session_state.answer = ""
         st.session_state.letter_open = False
