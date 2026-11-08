@@ -459,12 +459,33 @@ elif st.session_state.page == 3:
         font-size: 18px;
         line-height: 1.9;
     }
-    .letter-card .to { font-weight: bold; color: #a33d70; font-size: 22px; }
-    .letter-card .from { text-align: right; color: #a33d70; font-weight: bold; margin-top: 20px; }
+    .letter-card .to {
+        font-weight: bold;
+        color: #a33d70;
+        font-size: 22px;
+    }
+    .letter-card .from {
+        text-align: right;
+        color: #a33d70;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    .letter-card p {
+        text-align: left;
+        color: #6e3f5c;
+        font-size: 18px;
+        line-height: 1.9;
+        margin: 12px 0;
+    }
     .stButton > button {
-        width: 100%; min-height: 52px; border-radius: 18px;
-        background: #fff5fa; color: #a33d70;
-        border: 2px solid #efa8c8; font-size: 17px; font-weight: bold;
+        width: 100%;
+        min-height: 52px;
+        border-radius: 18px;
+        background: #fff5fa;
+        color: #a33d70;
+        border: 2px solid #efa8c8;
+        font-size: 17px;
+        font-weight: bold;
     }
     </style>
     <div style="text-align:center;font-size:55px;">💌</div>
@@ -473,17 +494,17 @@ elif st.session_state.page == 3:
 
     st.markdown("""
     <div class="letter-card">
-        <div class="to">মোৰ মৰমৰ মুনু,</div><br>
+        <div class="to">মোৰ মৰমৰ মুনু,</div>
 
-        জন্মদিনৰ বহুত বহুত মৰম আৰু শুভেচ্ছা। ❤️<br><br>
+        <p>জন্মদিনৰ বহুত বহুত মৰম আৰু শুভেচ্ছা। ❤️</p>
 
-        কি লিখিম ভাবি পোৱা নাই, মাথোঁ ইমানেই ক'ব বিচাৰোঁ যে তুমি মোৰ বাবে বহুত বিশেষ। সদায় কাষত থাকিব নোৱাৰিলেও মনত কিন্তু সদায় আছা।<br><br>
+        <p>কি লিখিম ভাবি পোৱা নাই, মাথোঁ ইমানেই ক'ব বিচাৰোঁ যে তুমি মোৰ বাবে বহুত বিশেষ। সদায় কাষত থাকিব নোৱাৰিলেও মনত কিন্তু সদায় আছা।</p>
 
-        তোমাৰ মুখৰ হাঁহিটো সদায় এনেকৈয়ে থাকক। তুমি যি বিচৰা, জীৱনত সকলো পাবা। মাজে মাজে কাজিয়া হ'ব, অভিমান হ'ব, কিন্তু তাৰ মাজতো আমাৰ মৰমখিনি এনেকৈয়ে থাকক।<br><br>
+        <p>তোমাৰ মুখৰ হাঁহিটো সদায় এনেকৈয়ে থাকক। তুমি যি বিচৰা, জীৱনত সকলো পাবা। মাজে মাজে কাজিয়া হ'ব, অভিমান হ'ব, কিন্তু তাৰ মাজতো আমাৰ মৰমখিনি এনেকৈয়ে থাকক।</p>
 
-        আজি তোমাৰ বাবে বিশেষ দিন, দিনটো ভালকে যাওঁক, সুখী হৈ থাকিবা আৰু নিজৰ যত্ন ল'বা।<br><br>
+        <p>আজি তোমাৰ বাবে বিশেষ দিন, দিনটো ভালকে যাওঁক, সুখী হৈ থাকিবা আৰু নিজৰ যত্ন ল'বা।</p>
 
-        Happy Birthday, Munu. বহুত মৰম তোমালৈ। ❤️
+        <p>Happy Birthday, Munu. বহুত মৰম তোমালৈ। ❤️</p>
 
         <div class="from">— Deep ❤️</div>
     </div>
