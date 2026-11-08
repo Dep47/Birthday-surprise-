@@ -19,14 +19,8 @@ st.markdown("""
     text-align: center;
     padding: 25px 10px;
 }
-.question {
+.question, .lock {
     background: rgba(255,255,255,0.8);
-    padding: 22px;
-    border-radius: 20px;
-    text-align: center;
-}
-.lock {
-    background: #f7dce9;
     padding: 22px;
     border-radius: 20px;
     text-align: center;
@@ -49,7 +43,7 @@ st.divider()
 
 st.markdown("""
 <div class="question">
-    <h2>First, answer me something! 🙈</h2>
+    <h2>First, answer me something!</h2>
     <h3>Do you love Deep? ❤️</h3>
 </div>
 """, unsafe_allow_html=True)
@@ -69,7 +63,7 @@ with col3:
         st.session_state.love_answer = "NO"
 
 if st.session_state.love_answer == "YES":
-    st.markdown("<h3 style='text-align:center;'>Yayyyy! 🥰</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center;'>Yayyyy! Deep is so happy!</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif",
         width=280
@@ -77,28 +71,28 @@ if st.session_state.love_answer == "YES":
     st.success("I knew it! Deep is the happiest person today! ❤️")
 
 elif st.session_state.love_answer == "THINK":
-    st.markdown("<h3 style='text-align:center;'>Hmmmm... 🤔</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center;'>Take your time, Munu!</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/6Z2Y8Q3qJwAAAAAC/thinking.gif",
         width=280
     )
-    st.info("Awww, take your time Munu! Such an innocent thinker! 😂❤️")
+    st.info("Such an innocent thinker! Deep is waiting patiently. ❤️")
 
 elif st.session_state.love_answer == "NO":
-    st.markdown("<h3 style='text-align:center;'>Nooooo! 😭</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center;'>Oh nooooo!</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/1J5Q3Y7XQ4AAAAAC/crying-sad.gif",
         width=280
     )
-    st.error("Deep's little heart is broken! 💔😭")
+    st.error("Deep's little heart is broken! 😭")
 
 st.divider()
 
 if st.session_state.love_answer == "YES":
     st.markdown("""
     <div class="lock">
-        <h2>🎁 Your Birthday Surprise</h2>
-        <h1>🔓 UNLOCKED ❤️</h1>
+        <h2>Your Birthday Surprise</h2>
+        <h1>UNLOCKED ❤️</h1>
         <p>Your special surprise is ready, Munu!</p>
     </div>
     """, unsafe_allow_html=True)
@@ -110,7 +104,7 @@ if st.session_state.love_answer == "YES":
 else:
     st.markdown("""
     <div class="lock">
-        <h2>🎁 Your Birthday Surprise</h2>
+        <h2>Your Birthday Surprise</h2>
         <h1>🔒 LOCKED</h1>
         <p>Something special is waiting for you!</p>
     </div>
