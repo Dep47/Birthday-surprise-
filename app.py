@@ -18,9 +18,6 @@ st.markdown("""
 .stApp {
     background: linear-gradient(135deg, #fff0f5, #f5e6ff, #ffe4ec);
 }
-h1, h2, h3, p {
-    color: #753653;
-}
 .welcome {
     text-align: center;
     padding: 25px 10px;
@@ -30,7 +27,6 @@ h1, h2, h3, p {
     padding: 22px;
     border-radius: 20px;
     text-align: center;
-    margin: 15px 0;
 }
 .lock {
     background: #f7dce9;
@@ -98,60 +94,28 @@ elif st.session_state.love_answer == "NO":
 
 st.divider()
 
-st.markdown("""
-<div class="question">
-    <h2>Okay, one more thing! 🎮</h2>
-    <h3>How well do you know Deep?</h3>
-    <p>Let's play a little birthday challenge! 💕</p>
-</div>
-""", unsafe_allow_html=True)
+if st.session_state.love_answer == "YES":
+    st.markdown("""
+    <div class="lock">
+        <h2>🎁 Your Birthday Surprise</h2>
+        <h1>🔓 UNLOCKED ❤️</h1>
+        <p>Your special surprise is ready, Munu!</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-q1 = st.radio(
-    "1. Who is more dramatic? 😂",
-    ["Deep", "Munu", "Both equally"]
-)
+    if st.button("Open Your Surprise 🎁", use_container_width=True):
+        st.session_state.surprise_opened = True
+        st.balloons()
+        st.success("Let's go, Munu! ❤️")
 
-q2 = st.radio(
-    "2. Who says sorry first? 🥺",
-    ["Deep", "Munu", "Depends on the situation"]
-)
-
-q3 = st.radio(
-    "3. Who misses the other person more? ❤️",
-    ["Deep", "Munu", "Both equally"]
-)
-
-st.divider()
-
-st.markdown("""
-<div class="lock">
-    <h2>🎁 Your Birthday Surprise</h2>
-    <h1>🔒 LOCKED</h1>
-    <p>Something special is waiting for you!</p>
-    <p>Answer YES and complete all three challenges to unlock it. ❤️</p>
-</div>
-""", unsafe_allow_html=True)
-
-game_completed = all([q1, q2, q3])
-
-can_unlock = (
-    st.session_state.love_answer == "YES"
-    and game_completed
-)
-
-if st.button(
-    "Open Your Surprise 🎁",
-    use_container_width=True,
-    disabled=not can_unlock
-):
-    st.session_state.surprise_opened = True
-    st.balloons()
-
-if st.session_state.surprise_opened:
-    st.success("Your surprise is ready, Munu! ❤️")
-    st.markdown("### See you inside... 💗")
-elif not can_unlock:
-    st.warning("Complete the three challenges and choose YES to unlock your surprise! ❤️")
+else:
+    st.markdown("""
+    <div class="lock">
+        <h2>🎁 Your Birthday Surprise</h2>
+        <h1>🔒 LOCKED</h1>
+        <p>Something special is waiting for you!</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("""
 <hr>
