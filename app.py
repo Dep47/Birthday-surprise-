@@ -23,9 +23,11 @@ st.markdown("""
 .stApp {
     background: linear-gradient(135deg, #ffe0ec, #f5e3ff, #fff0f5);
 }
+
 h1, h2, h3, p {
     font-family: Georgia, serif;
 }
+
 .stButton > button {
     width: 100%;
     border-radius: 20px;
@@ -35,6 +37,7 @@ h1, h2, h3, p {
     font-weight: bold;
     padding: 12px;
 }
+
 .stButton > button:hover {
     background-color: #f8c9dc;
     color: #8e285c;
@@ -44,18 +47,18 @@ h1, h2, h3, p {
 """, unsafe_allow_html=True)
 
 
-# PAGE 1: WELCOME PAGE
-
 if st.session_state.page == 1:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffb8;
-    border:2px solid #f2b3d0;
-    border-radius:30px;
-    padding:30px 15px;">
+    <div style="
+        text-align:center;
+        background:#ffffffb8;
+        border:2px solid #f2b3d0;
+        border-radius:30px;
+        padding:30px 15px;
+    ">
 
         <div style="font-size:65px;">🎀 💗 🎂</div>
 
@@ -127,16 +130,16 @@ if st.session_state.page == 1:
     """, unsafe_allow_html=True)
 
 
-# PAGE 2: BIRTHDAY SURPRISE
-
 elif st.session_state.page == 2:
 
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffb8;
-    border:2px solid #f2b3d0;
-    border-radius:30px;
-    padding:25px 15px;">
+    <div style="
+        text-align:center;
+        background:#ffffffb8;
+        border:2px solid #f2b3d0;
+        border-radius:30px;
+        padding:25px 15px;
+    ">
 
         <div style="font-size:50px;">🎈 🎂 🎈</div>
 
@@ -161,11 +164,13 @@ elif st.session_state.page == 2:
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffa8;
-    border:2px solid #f2b3d0;
-    border-radius:25px;
-    padding:20px;">
+    <div style="
+        text-align:center;
+        background:#ffffffa8;
+        border:2px solid #f2b3d0;
+        border-radius:25px;
+        padding:20px;
+    ">
 
         <h2 style="color:#a33d70;">
             A Birthday Cake for You! 🎂
@@ -187,11 +192,13 @@ elif st.session_state.page == 2:
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffa8;
-    border:2px solid #f2b3d0;
-    border-radius:25px;
-    padding:22px;">
+    <div style="
+        text-align:center;
+        background:#ffffffa8;
+        border:2px solid #f2b3d0;
+        border-radius:25px;
+        padding:22px;
+    ">
 
         <h2 style="color:#a33d70;">
             Our Little Memories 📸
@@ -223,14 +230,14 @@ elif st.session_state.page == 2:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # BIRTHDAY SONG
-
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffa8;
-    border:2px solid #f2b3d0;
-    border-radius:25px;
-    padding:22px;">
+    <div style="
+        text-align:center;
+        background:#ffffffa8;
+        border:2px solid #f2b3d0;
+        border-radius:25px;
+        padding:22px;
+    ">
 
         <div style="font-size:45px;">🎵 🎶 💗</div>
 
@@ -251,28 +258,28 @@ elif st.session_state.page == 2:
 
     components.html("""
     <div style="border-radius:15px;overflow:hidden;">
-    <iframe
-        width="100%"
-        height="220"
-        src="https://www.youtube.com/embed/LXd5OV5WjGE?autoplay=1&playsinline=1"
-        title="Aji Munu Jonmodin"
-        frameborder="0"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen>
-    </iframe>
+        <iframe
+            width="100%"
+            height="220"
+            src="https://www.youtube.com/embed/LXd5OV5WjGE?autoplay=1&playsinline=1"
+            title="Aji Munu Jonmodin"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
     </div>
     """, height=230)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # BIRTHDAY LETTER
-
     st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffa8;
-    border:2px solid #f2b3d0;
-    border-radius:25px;
-    padding:22px;">
+    <div style="
+        text-align:center;
+        background:#ffffffa8;
+        border:2px solid #f2b3d0;
+        border-radius:25px;
+        padding:22px;
+    ">
 
         <div style="font-size:45px;">💌 🌷 💗</div>
 
@@ -293,12 +300,14 @@ elif st.session_state.page == 2:
     if st.session_state.letter_open:
 
         st.markdown("""
-        <div style="background:#fff7fb;
-        border:2px solid #f2b3d0;
-        border-radius:20px;
-        padding:25px;
-        color:#875477;
-        line-height:1.8;">
+        <div style="
+            background:#fff7fb;
+            border:2px solid #f2b3d0;
+            border-radius:20px;
+            padding:25px;
+            color:#875477;
+            line-height:1.8;
+        ">
 
             <h2 style="text-align:center;color:#a33d70;">
                 My Dear Munu ❤️
@@ -339,9 +348,11 @@ elif st.session_state.page == 2:
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align:center;
-    color:#a33d70;
-    padding:20px;">
+    <div style="
+        text-align:center;
+        color:#a33d70;
+        padding:20px;
+    ">
 
         <h2>Made with Love ❤️</h2>
 
