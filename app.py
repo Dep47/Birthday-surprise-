@@ -50,6 +50,7 @@ h1, h2, h3, p {
     color: white;
     border: 1px solid white;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -58,7 +59,7 @@ def go_to_page(page):
     st.session_state.page = page
 
 
-# PAGE 1: WELCOME
+# ---------------- PAGE 1: WELCOME ----------------
 
 if st.session_state.page == 1:
 
@@ -156,7 +157,7 @@ if st.session_state.page == 1:
             st.rerun()
 
 
-# PAGE 2: BIRTHDAY CELEBRATION
+# ---------------- PAGE 2: BIRTHDAY CELEBRATION ----------------
 
 elif st.session_state.page == 2:
 
@@ -209,6 +210,7 @@ elif st.session_state.page == 2:
         )
 
         if st.button("🕯️ BLOW THE CANDLES"):
+
             st.session_state.candles_out = True
             st.rerun()
 
@@ -241,7 +243,9 @@ elif st.session_state.page == 2:
     image_files = []
 
     for extension in image_extensions:
-        image_files.extend(Path(".").glob(f"*{extension}"))
+        image_files.extend(
+            Path(".").glob(f"*{extension}")
+        )
 
     image_files = sorted(image_files)
 
@@ -317,17 +321,19 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     if st.button("💌 OPEN MY LETTER"):
+
         go_to_page(3)
         st.rerun()
 
     st.write("")
 
     if st.button("⬅️ BACK TO WELCOME PAGE"):
+
         go_to_page(1)
         st.rerun()
 
 
-# PAGE 3: ASSAMESE BIRTHDAY LETTER
+# ---------------- PAGE 3: ASSAMESE BIRTHDAY LETTER ----------------
 
 elif st.session_state.page == 3:
 
@@ -342,13 +348,13 @@ elif st.session_state.page == 3:
         background:linear-gradient(135deg,#fff7fb,#ffe6f0);
         border:2px solid #f2b3d0;
         border-radius:25px;
-        padding:25px 20px;
+        padding:25px;
         color:#80536b;
-        line-height:2;
+        line-height:1.9;
         box-shadow:0 8px 25px rgba(174,91,137,0.13);
     ">
 
-        <div style="text-align:center;font-size:40px;">
+        <div style="text-align:center;font-size:45px;">
             💌 🌷 ❤️
         </div>
 
@@ -385,7 +391,7 @@ elif st.session_state.page == 3:
         </div>
 
         <h3 style="text-align:right;color:#a33d70;">
-            তোমাৰ মৰমৰ,<br>
+            Forever yours,<br>
             Deep ❤️
         </h3>
 
@@ -402,5 +408,6 @@ elif st.session_state.page == 3:
     """, unsafe_allow_html=True)
 
     if st.button("⬅️ BACK TO BIRTHDAY CELEBRATION"):
+
         go_to_page(2)
         st.rerun()
