@@ -17,6 +17,7 @@ if "answer" not in st.session_state:
 if "letter_open" not in st.session_state:
     st.session_state.letter_open = False
 
+
 st.markdown("""
 <style>
 .stApp {
@@ -42,6 +43,8 @@ h1, h2, h3, p {
 </style>
 """, unsafe_allow_html=True)
 
+
+# PAGE 1: WELCOME PAGE
 
 if st.session_state.page == 1:
 
@@ -70,16 +73,7 @@ if st.session_state.page == 1:
 
         <div style="font-size:35px;">🌷 🦋 🌷</div>
 
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="text-align:center;
-    background:#ffffffa8;
-    border-radius:25px;
-    padding:20px;">
+        <hr style="border:1px solid #f2b3d0;">
 
         <h2 style="color:#a33d70;">
             One little question for you... 💌
@@ -112,8 +106,6 @@ if st.session_state.page == 1:
 
         st.success("Awww! I knew it! I love you too, Munu! ❤️")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-
         if st.button("🎁 OPEN YOUR SURPRISE 🎁"):
             st.session_state.page = 2
             st.rerun()
@@ -134,6 +126,8 @@ if st.session_state.page == 1:
     </p>
     """, unsafe_allow_html=True)
 
+
+# PAGE 2: BIRTHDAY SURPRISE
 
 elif st.session_state.page == 2:
 
@@ -214,16 +208,22 @@ elif st.session_state.page == 2:
 
     image_files = sorted([
         file for file in Path(__file__).parent.iterdir()
-        if file.is_file() and file.suffix.lower() in image_extensions
+        if file.is_file()
+        and file.suffix.lower() in image_extensions
     ])
 
     if image_files:
         for photo in image_files:
-            st.image(str(photo), use_container_width=True)
+            st.image(
+                str(photo),
+                use_container_width=True
+            )
     else:
         st.info("Your photos will appear here after uploading them to GitHub.")
 
     st.markdown("<br>", unsafe_allow_html=True)
+
+    # BIRTHDAY SONG
 
     st.markdown("""
     <div style="text-align:center;
@@ -264,6 +264,8 @@ elif st.session_state.page == 2:
     """, height=230)
 
     st.markdown("<br>", unsafe_allow_html=True)
+
+    # BIRTHDAY LETTER
 
     st.markdown("""
     <div style="text-align:center;
