@@ -1,413 +1,442 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import os
 from pathlib import Path
 
 st.set_page_config(
     page_title="Happy Birthday Munu ❤️",
-    page_icon="💗",
+    page_icon="🎂",
     layout="centered"
 )
 
 if "page" not in st.session_state:
     st.session_state.page = 1
 
-if "answers" not in st.session_state:
-    st.session_state.answers = {}
-
-if "surprise_unlocked" not in st.session_state:
-    st.session_state.surprise_unlocked = False
+if "answer" not in st.session_state:
+    st.session_state.answer = None
 
 if "candles_out" not in st.session_state:
     st.session_state.candles_out = False
 
 
-st.markdown("""
-<style>
-.stApp {
-    background: linear-gradient(135deg, #fff0f6, #f5eaff, #ffe4ef);
-}
-
-.block-container {
-    max-width: 750px;
-    padding-top: 2rem;
-}
-
-h1, h2, h3, p {
-    text-align: center;
-}
-
-.stButton button {
-    width: 100%;
-    border-radius: 30px;
-    border: none;
-    background: linear-gradient(90deg, #ff77aa, #c084fc);
-    color: white;
-    font-weight: bold;
-    padding: 12px;
-}
-
-.stButton button:hover {
-    color: white;
-    border: 1px solid white;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-def go_to_page(page):
-    st.session_state.page = page
-
-
-# ---------------- PAGE 1: WELCOME ----------------
-
 if st.session_state.page == 1:
 
-    components.html("""
-    <div style="text-align:center;padding:15px;">
-        <div style="font-size:45px;">🎀 💗 🎀</div>
-        <div style="font-size:55px;">🌸</div>
-    </div>
-    """, height=120)
+    st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(145deg, #ffe4ef 0%, #f4e5ff 50%, #fff0e5 100%);
+    }
+    .block-container {
+        max-width: 760px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+    h1, h2, h3, p {
+        text-align: center;
+    }
+    .stButton > button {
+        width: 100%;
+        min-height: 55px;
+        border-radius: 18px;
+        border: 2px solid #efa8c8;
+        background: #fff8fc;
+        color: #a43e75;
+        font-size: 18px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .stButton > button:hover {
+        background: #ffd6e8;
+        border-color: #d96b9e;
+        color: #8c285d;
+    }
+    .greeting {
+        text-align: center;
+        color: #995078;
+        font-size: 18px;
+        line-height: 1.8;
+    }
+    .gift-box {
+        background: rgba(255,255,255,0.72);
+        border: 2px solid #f2b3d0;
+        border-radius: 28px;
+        padding: 25px 15px;
+        text-align: center;
+        margin: 25px 0;
+        box-shadow: 0 8px 25px rgba(174,91,137,0.13);
+    }
+    .gift-heading {
+        color: #a33d70;
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .gift-description {
+        color: #80536b;
+        font-size: 15px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="
-        background:rgba(255,255,255,0.75);
-        padding:30px 20px;
-        border-radius:30px;
-        text-align:center;
-        box-shadow:0 8px 25px rgba(200,100,150,0.15);
-    ">
-        <h1 style="color:#d63384;">Happy Birthday Munu! ❤️</h1>
-
-        <h3 style="color:#a8558e;">A little surprise made with love...</h3>
-
-        <p style="color:#80536b;font-size:18px;">
-            Today is all about you.
-            I made something special just for you.
-        </p>
-
-        <div style="font-size:40px;">🦋 🌷 💕 🌷 🦋</div>
-
-        <h2 style="color:#c02675;">Deep ❤️ Munu</h2>
+    <div style="text-align:center;">
+        <div style="font-size:48px;">🎀 🌸 🦋 🌸 🎀</div>
+        <div style="font-size:65px;">🎂</div>
+        <h1 style="color:#b33f78;font-size:42px;">
+            Happy Birthday,<br>My Munu! ❤️
+        </h1>
+        <div class="greeting">
+            Today is all about you. ✨<br>
+            Someone as special as you deserves<br>
+            a little extra magic today.<br><br>
+            <b>A little world, made just for you...</b>
+        </div>
+        <div style="font-size:30px;margin-top:15px;">
+            💗 🌷 💕 🌷 💗
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    st.markdown(
-        "<h3 style='color:#a8558e;'>Before opening your surprise... 💌</h3>",
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <h2 style="color:#a33d70;">Before your surprise... 💌</h2>
+    <h3 style="color:#80536b;">Do you love Deep? ❤️</h3>
+    """, unsafe_allow_html=True)
 
-    questions = [
-        "1. Do you love me? ❤️",
-        "2. Do you miss me? 🥺",
-        "3. Will you stay with me forever? 💍"
-    ]
+    col1, col2, col3 = st.columns(3)
 
-    options = ["Yes ❤️", "Think 🤔", "No 🙈"]
+    with col1:
+        if st.button("YES ❤️"):
+            st.session_state.answer = "yes"
 
-    for i, question in enumerate(questions):
-        st.markdown(
-            f"<h4 style='color:#a33d70;'>{question}</h4>",
-            unsafe_allow_html=True
-        )
+    with col2:
+        if st.button("THINK 🤔"):
+            st.session_state.answer = "think"
 
-        st.session_state.answers[i] = st.radio(
-            "Choose your answer:",
-            options,
-            key=f"question_{i}",
-            horizontal=True
-        )
+    with col3:
+        if st.button("NO 💔"):
+            st.session_state.answer = "no"
 
-    st.write("")
+    if st.session_state.answer == "yes":
+        cartoon = """
+        <div class="character">🥰</div>
+        <div class="hearts">💖 💕 💗 💞</div>
+        <h2 style="color:#d63384;">Yayyyyy! I knew it! ❤️</h2>
+        <p>Deep is smiling like crazy right now! 🥹</p>
+        """
+    elif st.session_state.answer == "think":
+        cartoon = """
+        <div class="character">🤔</div>
+        <div class="hearts">💭 💭 💭</div>
+        <h2 style="color:#a35b91;">Awww, take your time, Munu! 🌷</h2>
+        <p>No pressure... I'll wait for your answer. 😊</p>
+        """
+    elif st.session_state.answer == "no":
+        cartoon = """
+        <div class="character">😭</div>
+        <div class="hearts">💔 🥺 💔</div>
+        <h2 style="color:#a33d70;">Nooooo! My little heart! 💔</h2>
+        <p>Deep needs a big hug now! 🥹</p>
+        """
+    else:
+        cartoon = """
+        <div class="character">🐻‍❄️</div>
+        <h2 style="color:#a35b91;">Waiting for your answer... 💗</h2>
+        <p>Choose honestly, Munu! 😊</p>
+        """
 
-    if st.button("🎁 UNLOCK MY SURPRISE ❤️"):
+    components.html(f"""
+    <div style="text-align:center;padding:10px;">
+    <style>
+    .character {{
+        font-size:125px;
+        animation:bounce 1.5s infinite;
+    }}
+    .hearts {{
+        font-size:35px;
+        margin:10px;
+    }}
+    p {{
+        color:#80536b;
+        font-size:18px;
+    }}
+    @keyframes bounce {{
+        0%,100% {{transform:translateY(0);}}
+        50% {{transform:translateY(-15px);}}
+    }}
+    </style>
+    {cartoon}
+    </div>
+    """, height=280)
 
-        if all(
-            st.session_state.answers.get(i) == "Yes ❤️"
-            for i in range(3)
-        ):
-            st.session_state.surprise_unlocked = True
-            st.success("Awww! All correct answers! ❤️")
-
-        else:
-            st.session_state.surprise_unlocked = False
-            st.warning("You have to say YES to all three questions! 🙈")
-
-    if st.session_state.surprise_unlocked:
-
-        st.markdown("""
-        <div style="
-            background:#fff0f6;
-            padding:20px;
-            border-radius:20px;
-            text-align:center;
-        ">
-            <h2 style="color:#d63384;">Yayyyy! ❤️</h2>
-            <p style="font-size:20px;color:#a8558e;">
-                Your birthday surprise is waiting for you!
-            </p>
+    st.markdown("""
+    <div class="gift-box">
+        <div style="font-size:75px;">🎁</div>
+        <div class="gift-heading">A Special Surprise for You</div>
+        <div class="gift-description">
+            A little something made with lots of love,<br>
+            especially for my Munu. 💝
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
 
-        if st.button("OPEN YOUR BIRTHDAY SURPRISE 🎂"):
-            go_to_page(2)
+    if st.session_state.answer == "yes":
+
+        st.success("🔓 Your surprise is unlocked! ❤️")
+
+        if st.button("🎁 OPEN YOUR SURPRISE"):
+            st.session_state.page = 2
             st.rerun()
 
+    else:
+        st.button(
+            "🔒 SURPRISE LOCKED — SAY YES ❤️",
+            disabled=True
+        )
 
-# ---------------- PAGE 2: BIRTHDAY CELEBRATION ----------------
+    st.markdown("""
+    <br>
+    <div style="text-align:center;color:#a35b91;">
+        Made with love by Deep ❤️<br>
+        <small>A little piece of my heart, just for you.</small>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 elif st.session_state.page == 2:
 
-    components.html("""
-    <div style="text-align:center;">
-        <div style="font-size:35px;">🎈 🎀 🎈 🎉 🎈</div>
-        <div style="font-size:50px;">🎂</div>
-    </div>
-    """, height=120)
-
     st.markdown("""
-    <div style="
-        background:rgba(255,255,255,0.8);
-        border-radius:30px;
-        padding:25px 15px;
-        text-align:center;
-        box-shadow:0 8px 25px rgba(200,100,150,0.15);
-    ">
-        <h1 style="color:#d63384;">Happy Birthday Munu! 🎂</h1>
-
-        <h3 style="color:#a8558e;">My favourite person ❤️</h3>
-
-        <p style="font-size:17px;color:#80536b;">
-            Today the world became more beautiful
-            because you were born.
-        </p>
-
-        <div style="font-size:35px;">🌸 🦋 💗 🦋 🌸</div>
-    </div>
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, #ffe0ed, #eadcff, #fff0d9);
+    }
+    .block-container {
+        max-width: 850px;
+        padding-top: 1.5rem;
+    }
+    .birthday-title {
+        text-align: center;
+        color: #b33e78;
+        font-size: 42px;
+        font-weight: bold;
+        text-shadow: 2px 3px 8px #ffffff;
+    }
+    .birthday-subtitle {
+        text-align: center;
+        color: #875477;
+        font-size: 19px;
+    }
+    .photo-caption {
+        text-align: center;
+        color: #a33d70;
+        font-size: 17px;
+        padding: 12px;
+    }
+    .cake-box {
+        text-align: center;
+        background: #ffffffa8;
+        border: 2px solid #f2b3d0;
+        border-radius: 25px;
+        padding: 20px;
+        margin: 25px 0;
+    }
+    .stButton > button {
+        width: 100%;
+        min-height: 52px;
+        border-radius: 18px;
+        background: #fff5fa;
+        color: #a33d70;
+        border: 2px solid #efa8c8;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    </style>
     """, unsafe_allow_html=True)
 
-    st.write("")
-
-    st.markdown(
-        "<h2 style='color:#d63384;'>🎂 Make a Birthday Wish!</h2>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown("""
-    <div style="text-align:center;font-size:65px;">
-        🎂
-    </div>
-    """, unsafe_allow_html=True)
-
-    if not st.session_state.candles_out:
-
-        st.markdown(
-            "<p style='color:#a8558e;'>Close your eyes and make a wish! ✨</p>",
-            unsafe_allow_html=True
-        )
-
-        if st.button("🕯️ BLOW THE CANDLES"):
-
-            st.session_state.candles_out = True
-            st.rerun()
-
-    else:
-
-        st.markdown("""
-        <div style="
-            background:#fff0f6;
-            padding:20px;
-            border-radius:20px;
-            text-align:center;
-        ">
-            <h2 style="color:#d63384;">Wish made! ✨</h2>
-            <p style="font-size:20px;color:#a8558e;">
-                May all your dreams come true, Munu! ❤️
-            </p>
-            <div style="font-size:35px;">🎉 🎊 💗 🎊 🎉</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.write("")
-
-    st.markdown(
-        "<h2 style='color:#d63384;'>Our Little Memories 📸</h2>",
-        unsafe_allow_html=True
-    )
-
-    image_extensions = [".jpg", ".jpeg", ".png", ".webp"]
-
-    image_files = []
-
-    for extension in image_extensions:
-        image_files.extend(
-            Path(".").glob(f"*{extension}")
-        )
-
-    image_files = sorted(image_files)
-
-    if image_files:
-
-        for i, photo in enumerate(image_files[:3]):
-
-            st.image(
-                str(photo),
-                use_container_width=True
-            )
-
-            captions = [
-                "A beautiful moment ❤️",
-                "My favourite smile 🥰",
-                "Forever special 💗"
-            ]
-
-            st.markdown(
-                f"<p style='color:#a8558e;'>{captions[i]}</p>",
-                unsafe_allow_html=True
-            )
-
-    else:
-
-        st.info(
-            "Add your three birthday photos to the same folder as app.py."
-        )
-
-    st.write("")
-
-    st.markdown(
-        "<h2 style='color:#d63384;'>A Song Just For You 🎵</h2>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        "<p style='color:#80536b;'>Listen to this special birthday song! ❤️</p>",
-        unsafe_allow_html=True
-    )
-
     components.html("""
-    <div style="border-radius:20px;overflow:hidden;">
-        <iframe
-            width="100%"
-            height="220"
-            src="https://www.youtube.com/embed/LXd5OV5WjGE"
-            title="Birthday Song"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-    </div>
-    """, height=230)
-
-    st.write("")
-
-    st.markdown("""
-    <div style="
-        background:linear-gradient(135deg,#fff0f6,#f3e8ff);
-        padding:25px;
-        border-radius:25px;
-        text-align:center;
-    ">
-        <h2 style="color:#d63384;">One More Surprise... 💌</h2>
-
-        <p style="color:#80536b;font-size:17px;">
-            I have something from my heart to tell you.
-        </p>
-
-        <div style="font-size:35px;">💌 🌷 ❤️</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if st.button("💌 OPEN MY LETTER"):
-
-        go_to_page(3)
-        st.rerun()
-
-    st.write("")
-
-    if st.button("⬅️ BACK TO WELCOME PAGE"):
-
-        go_to_page(1)
-        st.rerun()
-
-
-# ---------------- PAGE 3: ASSAMESE BIRTHDAY LETTER ----------------
-
-elif st.session_state.page == 3:
-
-    components.html("""
-    <div style="text-align:center;padding:15px;">
-        <div style="font-size:45px;">💌 🌷 💗 🌷 💌</div>
+    <div style="height:100px;overflow:hidden;position:relative;">
+    <style>
+    .balloon {
+        position:absolute;
+        bottom:-100px;
+        font-size:45px;
+        animation:float 7s infinite ease-in;
+    }
+    .b1 {left:8%;animation-delay:0s;}
+    .b2 {left:28%;animation-delay:2s;}
+    .b3 {left:52%;animation-delay:1s;}
+    .b4 {left:75%;animation-delay:3s;}
+    .b5 {left:90%;animation-delay:1.5s;}
+    @keyframes float {
+        0% {transform:translateY(0);opacity:0;}
+        15% {opacity:1;}
+        100% {transform:translateY(-220px) rotate(20deg);opacity:0;}
+    }
+    </style>
+    <div class="balloon b1">🎈</div>
+    <div class="balloon b2">🎀</div>
+    <div class="balloon b3">🎈</div>
+    <div class="balloon b4">💗</div>
+    <div class="balloon b5">🎈</div>
     </div>
     """, height=100)
 
     st.markdown("""
-    <div style="
-        background:linear-gradient(135deg,#fff7fb,#ffe6f0);
-        border:2px solid #f2b3d0;
-        border-radius:25px;
-        padding:25px;
-        color:#80536b;
-        line-height:1.9;
-        box-shadow:0 8px 25px rgba(174,91,137,0.13);
-    ">
-
-        <div style="text-align:center;font-size:45px;">
-            💌 🌷 ❤️
-        </div>
-
-        <h2 style="color:#a33d70;text-align:center;">
-            মোৰ মৰমৰ মুনু ❤️
-        </h2>
-
-        <p style="text-align:left;font-size:17px;">
-            মোৰ মৰমৰ মুনু,
-        </p>
-
-        <p style="text-align:left;font-size:17px;">
-            জন্মদিনৰ বহুত বহুত মৰম আৰু শুভেচ্ছা। ❤️
-        </p>
-
-        <p style="text-align:left;font-size:17px;">
-            কি লিখিম ভাবি পোৱা নাই, মাথোঁ ইমানেই ক'ব বিচাৰোঁ যে তুমি মোৰ বাবে বহুত বিশেষ। সদায় কাষত থাকিব নোৱাৰিলেও মনত কিন্তু সদায় আছা।
-        </p>
-
-        <p style="text-align:left;font-size:17px;">
-            তোমাৰ মুখৰ হাঁহিটো সদায় এনেকৈয়ে থাকক। তুমি যি বিচৰা, জীৱনত সকলো পাবা। মাজে মাজে কাজিয়া হ'ব, অভিমান হ'ব, কিন্তু তাৰ মাজতো আমাৰ মৰমখিনি এনেকৈয়ে থাকক।
-        </p>
-
-        <p style="text-align:left;font-size:17px;">
-            আজি তোমাৰ বাবে বিশেষ দিন, দিনটো ভালকে যাওঁক, সুখী হৈ থাকিবা আৰু নিজৰ যত্ন ল'বা।
-        </p>
-
-        <p style="text-align:left;font-size:17px;">
-            Happy Birthday, Munu. বহুত মৰম তোমালৈ। ❤️
-        </p>
-
-        <div style="text-align:center;font-size:35px;margin-top:20px;">
-            💗 🦋 🌸 💗
-        </div>
-
-        <h3 style="text-align:right;color:#a33d70;">
-            Forever yours,<br>
-            Deep ❤️
-        </h3>
-
+    <div class="birthday-title">
+        Happy Birthday, My Munu! ❤️
+    </div>
+    <div class="birthday-subtitle">
+        Today the world feels a little more beautiful because of you. 🌷
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
+    components.html("""
+    <div style="text-align:center;font-size:28px;padding:15px;">
+    <div style="animation:sparkle 2s infinite;">
+    ✨ 🎊 🎉 ✨ 🎊 🎉 ✨
+    </div>
+    <style>
+    @keyframes sparkle {
+        0%,100% {transform:scale(1);}
+        50% {transform:scale(1.08);}
+    }
+    </style>
+    </div>
+    """, height=75)
 
     st.markdown("""
-    <div style="text-align:center;">
-        <h2 style="color:#d63384;">I LOVE YOU, MUNU ❤️</h2>
-        <div style="font-size:40px;">🌹 💗 🦋 💗 🌹</div>
+    <div class="cake-box">
+        <div style="font-size:85px;">🎂</div>
+        <h2 style="color:#b33e78;">Make a Birthday Wish, Munu! 💗</h2>
+        <p style="color:#875477;">
+        Close your eyes, make a wish and get ready to blow out your candles.
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("⬅️ BACK TO BIRTHDAY CELEBRATION"):
+    if st.session_state.candles_out:
 
-        go_to_page(2)
+        st.markdown("""
+        <h2 style="text-align:center;color:#b33e78;">
+        🌟 Your wish is on its way! 🌟
+        </h2>
+        <div style="text-align:center;font-size:65px;">🎂💨💗</div>
+        """, unsafe_allow_html=True)
+
+        if st.button("🕯️ LIGHT THE CANDLES AGAIN"):
+            st.session_state.candles_out = False
+            st.rerun()
+
+    else:
+
+        st.markdown("""
+        <div style="text-align:center;font-size:45px;">
+        🕯️ 🕯️ 🕯️
+        </div>
+        """, unsafe_allow_html=True)
+
+        if st.button("💨 BLOW OUT YOUR CANDLES"):
+            st.session_state.candles_out = True
+            st.rerun()
+
+    st.markdown("""
+    <h2 style="text-align:center;color:#a33d70;">
+    A Birthday Girl Deserves All The Attention! 🌸
+    </h2>
+    <p style="text-align:center;color:#875477;">
+    A few beautiful pictures of the birthday girl herself. ❤️
+    </p>
+    """, unsafe_allow_html=True)
+
+    image_extensions = {".jpg", ".jpeg", ".png"}
+
+    image_files = sorted([
+        file for file in Path(__file__).parent.iterdir()
+        if file.is_file() and file.suffix.lower() in image_extensions
+    ])
+
+    if image_files:
+
+        for index, photo in enumerate(image_files):
+
+            st.markdown("""
+            <div style="
+                background:white;
+                padding:10px;
+                border-radius:20px;
+                box-shadow:0 7px 20px #bd82a555;
+                margin-bottom:15px;
+            ">
+            """, unsafe_allow_html=True)
+
+            st.image(str(photo), use_container_width=True)
+
+            captions = [
+                "Our Birthday Princess 👑",
+                "Simply Beautiful 🌷",
+                "Keep Smiling, Munu! 💗",
+                "Forever Special ❤️"
+            ]
+
+            caption = captions[index] if index < len(captions) else "A Beautiful Memory 💕"
+
+            st.markdown(
+                f'<div class="photo-caption">{caption}</div>',
+                unsafe_allow_html=True
+            )
+
+            st.markdown("</div>", unsafe_allow_html=True)
+
+    else:
+        st.warning("No birthday photos found. Please upload JPG, JPEG or PNG photos to GitHub.")
+
+    st.markdown("""
+    <div style="text-align:center;background:#ffffffa8;
+    border:2px solid #f2b3d0;border-radius:25px;padding:22px;">
+        <div style="font-size:45px;">🎵 🎶 💗</div>
+        <h2 style="color:#a33d70;">A Song for My Birthday Girl</h2>
+        <p style="color:#875477;">Aji Munu Jonmodin ❤️</p>
+        <p style="color:#875477;">This song is dedicated to you, Munu. 💕</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    components.html("""
+    <div style="border-radius:15px;overflow:hidden;">
+    <iframe
+        width="100%"
+        height="220"
+        src="https://www.youtube.com/embed/LXd5OV5WjGE"
+        title="Aji Munu Jonmodin"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+    </div>
+    """, height=230)
+
+    st.markdown("""
+    <div style="text-align:center;background:#ffffffa8;
+    border-radius:25px;padding:25px;margin-top:25px;">
+        <div style="font-size:55px;">💌</div>
+        <h2 style="color:#a33d70;">One More Little Surprise...</h2>
+        <p style="color:#875477;">
+        There are some things I want to tell you from my heart.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.button("💌 READ MY BIRTHDAY LETTER")
+
+    st.markdown("""
+    <br>
+    <div style="text-align:center;color:#a35b91;">
+    Made with endless love by Deep ❤️<br>
+    <small>Happy Birthday once again, Munu! 🎂</small>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.button("🏠 BACK TO WELCOME PAGE"):
+        st.session_state.page = 1
         st.rerun()
+
+    st.stop()
