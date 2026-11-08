@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import os
+from pathlib import Path
 
 st.set_page_config(
     page_title="Happy Birthday Munu ❤️",
@@ -180,6 +181,7 @@ if st.session_state.page == 1:
     """, unsafe_allow_html=True)
 
     if st.session_state.answer == "yes":
+
         st.success("🔓 Your surprise is unlocked! ❤️")
 
         if st.button("🎁 OPEN YOUR SURPRISE"):
@@ -224,18 +226,11 @@ elif st.session_state.page == 2:
         color: #875477;
         font-size: 19px;
     }
-    .photo-card {
-        background: white;
-        padding: 10px;
-        border-radius: 18px;
-        box-shadow: 0 7px 20px #bd82a555;
-        margin-bottom: 15px;
-    }
     .photo-caption {
         text-align: center;
         color: #a33d70;
-        font-size: 16px;
-        padding: 8px;
+        font-size: 17px;
+        padding: 12px;
     }
     .cake-box {
         text-align: center;
@@ -259,7 +254,7 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     components.html("""
-    <div style="height:100px; overflow:hidden; position:relative;">
+    <div style="height:100px;overflow:hidden;position:relative;">
     <style>
     .balloon {
         position:absolute;
@@ -273,7 +268,7 @@ elif st.session_state.page == 2:
     .b4 {left:75%;animation-delay:3s;}
     .b5 {left:90%;animation-delay:1.5s;}
     @keyframes float {
-        0% {transform:translateY(0) rotate(0deg);opacity:0;}
+        0% {transform:translateY(0);opacity:0;}
         15% {opacity:1;}
         100% {transform:translateY(-220px) rotate(20deg);opacity:0;}
     }
@@ -320,6 +315,7 @@ elif st.session_state.page == 2:
     """, unsafe_allow_html=True)
 
     if st.session_state.candles_out:
+
         st.markdown("""
         <h2 style="text-align:center;color:#b33e78;">
         🌟 Your wish is on its way! 🌟
@@ -332,6 +328,7 @@ elif st.session_state.page == 2:
             st.rerun()
 
     else:
+
         st.markdown("""
         <div style="text-align:center;font-size:45px;">
         🕯️ 🕯️ 🕯️
@@ -351,27 +348,47 @@ elif st.session_state.page == 2:
     </p>
     """, unsafe_allow_html=True)
 
-    photo_files = [
-        ("photos/munu1.jpg", "Our Birthday Princess 👑"),
-        ("photos/munu2.jpg", "Simply Beautiful 🌷"),
-        ("photos/munu3.jpg", "Keep Smiling, Munu! 💗")
-    ]
+    image_extensions = {".jpg", ".jpeg", ".png"}
 
-    for photo, caption in photo_files:
-        if os.path.exists(photo):
-            st.markdown('<div class="photo-card">', unsafe_allow_html=True)
+    image_files = sorted([
+        file for file in Path(__file__).parent.iterdir()
+        if file.is_file() and file.suffix.lower() in image_extensions
+    ])
 
-            st.image(photo, use_container_width=True)
+    if image_files:
+
+        for index, photo in enumerate(image_files):
+
+            st.markdown("""
+            <div style="
+                background:white;
+                padding:10px;
+                border-radius:20px;
+                box-shadow:0 7px 20px #bd82a555;
+                margin-bottom:15px;
+            ">
+            """, unsafe_allow_html=True)
+
+            st.image(str(photo), use_container_width=True)
+
+            captions = [
+                "Our Birthday Princess 👑",
+                "Simply Beautiful 🌷",
+                "Keep Smiling, Munu! 💗",
+                "Forever Special ❤️"
+            ]
+
+            caption = captions[index] if index < len(captions) else "A Beautiful Memory 💕"
 
             st.markdown(
                 f'<div class="photo-caption">{caption}</div>',
                 unsafe_allow_html=True
             )
 
-            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
-        else:
-            st.warning(f"Please upload {photo} to your GitHub repository.")
+    else:
+        st.warning("No birthday photos found. Please upload JPG, JPEG or PNG photos to GitHub.")
 
     st.markdown("""
     <div style="text-align:center;background:#ffffffa8;
@@ -379,22 +396,23 @@ elif st.session_state.page == 2:
         <div style="font-size:45px;">🎵 🎶 💗</div>
         <h2 style="color:#a33d70;">A Song for My Birthday Girl</h2>
         <p style="color:#875477;">Aji Munu Jonmodin ❤️</p>
+        <p style="color:#875477;">This song is dedicated to you, Munu. 💕</p>
     </div>
     """, unsafe_allow_html=True)
 
     components.html("""
-    <div style="text-align:center;">
+    <div style="border-radius:15px;overflow:hidden;">
     <iframe
         width="100%"
-        height="100"
+        height="220"
         src="https://www.youtube.com/embed/LXd5OV5WjGE"
         title="Aji Munu Jonmodin"
         frameborder="0"
-        allow="autoplay; encrypted-media"
+        allow="autoplay; encrypted-media; picture-in-picture"
         allowfullscreen>
     </iframe>
     </div>
-    """, height=115)
+    """, height=230)
 
     st.markdown("""
     <div style="text-align:center;background:#ffffffa8;
