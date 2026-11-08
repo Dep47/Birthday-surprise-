@@ -18,7 +18,6 @@ if "answer" not in st.session_state:
 if "candles_out" not in st.session_state:
     st.session_state.candles_out = False
 
-
 if st.session_state.page == 1:
 
     st.markdown("""
@@ -201,7 +200,6 @@ if st.session_state.page == 1:
         <small>A little piece of my heart, just for you.</small>
     </div>
     """, unsafe_allow_html=True)
-
 
 elif st.session_state.page == 2:
 
@@ -425,7 +423,9 @@ elif st.session_state.page == 2:
     </div>
     """, unsafe_allow_html=True)
 
-    st.button("💌 READ MY BIRTHDAY LETTER")
+    if st.button("💌 READ MY BIRTHDAY LETTER"):
+        st.session_state.page = 3
+        st.rerun()
 
     st.markdown("""
     <br>
@@ -437,6 +437,62 @@ elif st.session_state.page == 2:
 
     if st.button("🏠 BACK TO WELCOME PAGE"):
         st.session_state.page = 1
+        st.rerun()
+
+    st.stop()
+
+elif st.session_state.page == 3:
+
+    st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, #ffe0ed, #eadcff, #fff0d9);
+    }
+    .block-container { max-width: 760px; padding-top: 1.5rem; }
+    .letter-card {
+        background: #fffafc;
+        border: 2px solid #f2b3d0;
+        border-radius: 25px;
+        padding: 30px 25px;
+        box-shadow: 0 8px 25px rgba(174,91,137,0.15);
+        color: #6e3f5c;
+        font-size: 18px;
+        line-height: 1.9;
+    }
+    .letter-card .to { font-weight: bold; color: #a33d70; font-size: 22px; }
+    .letter-card .from { text-align: right; color: #a33d70; font-weight: bold; margin-top: 20px; }
+    .stButton > button {
+        width: 100%; min-height: 52px; border-radius: 18px;
+        background: #fff5fa; color: #a33d70;
+        border: 2px solid #efa8c8; font-size: 17px; font-weight: bold;
+    }
+    </style>
+    <div style="text-align:center;font-size:55px;">💌</div>
+    <h1 style="text-align:center;color:#b33e78;">A Letter For You, Munu</h1>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="letter-card">
+        <div class="to">মোৰ মৰমৰ মুনু,</div><br>
+
+        জন্মদিনৰ বহুত বহুত মৰম আৰু শুভেচ্ছা। ❤️<br><br>
+
+        কি লিখিম ভাবি পোৱা নাই, মাথোঁ ইমানেই ক'ব বিচাৰোঁ যে তুমি মোৰ বাবে বহুত বিশেষ। সদায় কাষত থাকিব নোৱাৰিলেও মনত কিন্তু সদায় আছা।<br><br>
+
+        তোমাৰ মুখৰ হাঁহিটো সদায় এনেকৈয়ে থাকক। তুমি যি বিচৰা, জীৱনত সকলো পাবা। মাজে মাজে কাজিয়া হ'ব, অভিমান হ'ব, কিন্তু তাৰ মাজতো আমাৰ মৰমখিনি এনেকৈয়ে থাকক।<br><br>
+
+        আজি তোমাৰ বাবে বিশেষ দিন, দিনটো ভালকে যাওঁক, সুখী হৈ থাকিবা আৰু নিজৰ যত্ন ল'বা।<br><br>
+
+        Happy Birthday, Munu. বহুত মৰম তোমালৈ। ❤️
+
+        <div class="from">— Deep ❤️</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if st.button("🎂 BACK TO BIRTHDAY PAGE"):
+        st.session_state.page = 2
         st.rerun()
 
     st.stop()
