@@ -10,9 +10,6 @@ st.set_page_config(
 if "love_answer" not in st.session_state:
     st.session_state.love_answer = None
 
-if "surprise_opened" not in st.session_state:
-    st.session_state.surprise_opened = False
-
 st.markdown("""
 <style>
 .stApp {
@@ -23,7 +20,7 @@ st.markdown("""
     padding: 25px 10px;
 }
 .question {
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.8);
     padding: 22px;
     border-radius: 20px;
     text-align: center;
@@ -72,25 +69,28 @@ with col3:
         st.session_state.love_answer = "NO"
 
 if st.session_state.love_answer == "YES":
+    st.markdown("<h3 style='text-align:center;'>Yayyyy! 🥰</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/2roX3uxz_68AAAAC/cute-love.gif",
-        width=250
+        width=280
     )
-    st.success("Yayyyy! I knew it! Deep is smiling like crazy! 🥰")
+    st.success("I knew it! Deep is the happiest person today! ❤️")
 
 elif st.session_state.love_answer == "THINK":
+    st.markdown("<h3 style='text-align:center;'>Hmmmm... 🤔</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/6Z2Y8Q3qJwAAAAAC/thinking.gif",
-        width=250
+        width=280
     )
-    st.info("Awww, take your time! Thinking so seriously? 😂")
+    st.info("Awww, take your time Munu! Such an innocent thinker! 😂❤️")
 
 elif st.session_state.love_answer == "NO":
+    st.markdown("<h3 style='text-align:center;'>Nooooo! 😭</h3>", unsafe_allow_html=True)
     st.image(
         "https://media.tenor.com/1J5Q3Y7XQ4AAAAAC/crying-sad.gif",
-        width=250
+        width=280
     )
-    st.error("Nooooo! My little heart! 😭💔")
+    st.error("Deep's little heart is broken! 💔😭")
 
 st.divider()
 
@@ -104,7 +104,6 @@ if st.session_state.love_answer == "YES":
     """, unsafe_allow_html=True)
 
     if st.button("Open Your Surprise 🎁", use_container_width=True):
-        st.session_state.surprise_opened = True
         st.balloons()
         st.success("Let's go, Munu! ❤️")
 
